@@ -4,10 +4,10 @@ function key(body) {
   return [component, mode].join(".");
 }
 
-function value(body, previousValue) {
+function value(body) {
   const { value } = body;
 
-  return (previousValue || []).concat(value);
+  return value;
 }
 
 function produce(cache) {

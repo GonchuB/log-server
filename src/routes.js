@@ -1,16 +1,14 @@
-const get = require("lodash.get");
-const set = require("lodash.set");
-const merge = require("lodash.merge");
+const identity = require("lodash.identity");
 const logger = require("./log");
+const db = require("./db");
+const { entriesToObject } = require("./db.helpers.js");
 const implementationStrategy = require("./implementationStrategy");
 
-function logEntry(cache, entry) {
+function logEntry(entries, entry) {
   const key = implementationStrategy.key(entry);
-  const value = implementationStrategy.value(entry, get(cache, key));
+  const value = implementationStrategy.value(entry);
 
-  const objectEntry = {};
-  set(objectEntry, key, value);
-  merge(cache, objectEntry);
+  entries.insert({ key, value });
 
   logger.log({
     level: "info",
@@ -19,11 +17,7 @@ function logEntry(cache, entry) {
 }
 
 function routes(app) {
-  let LOG_ENTRIES = {};
-
   app.post("/log-start", function(req, res) {
-    LOG_ENTRIES = {};
-
     logger.log({
       level: "info",
       message: "Entries cleared"
@@ -32,7 +26,10 @@ function routes(app) {
   });
 
   app.post("/log-end", function(req, res) {
-    const result = implementationStrategy.produce(LOG_ENTRIES);
+    const result = implementationStrategy.produce(
+      db.entries().mapReduce(identity, entriesToObject)
+    );
+
     const response = JSON.stringify(result, null, 2);
 
     logger.log({ level: "info", message: response });
@@ -40,7 +37,7 @@ function routes(app) {
   });
 
   app.post("/log", function(req, res) {
-    logEntry(LOG_ENTRIES, req.body);
+    logEntry(db.entries(), req.body);
 
     res.sendStatus(200);
   });
