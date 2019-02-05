@@ -1,19 +1,11 @@
 const path = require("path");
-const minimist = require("minimist");
 const identity = require("lodash.identity");
+const runArgument = require("./runArgument");
 
-const FILENAME_OPTIONS = ["f", "filename", "file", "o", "-output"];
+const FILENAME_OPTIONS = ["f", "filename", "file", "o", "output"];
 
 function implementationStrategy() {
-  const runArguments = minimist(process.argv.slice(2));
-
-  const filenameEntries = Object.entries(runArguments).find(entry => {
-    const key = entry[0];
-
-    return Boolean(runArguments[key]) && FILENAME_OPTIONS.includes(key);
-  }) || ["", ""];
-
-  const entriesFilename = filenameEntries[1];
+  const entriesFilename = runArgument(FILENAME_OPTIONS);
 
   if (entriesFilename) {
     const filepath = path.isAbsolute(entriesFilename)
