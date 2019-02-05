@@ -1,3 +1,4 @@
+const path = require("path");
 const minimist = require("minimist");
 const identity = require("lodash.identity");
 
@@ -15,8 +16,12 @@ function implementationStrategy() {
   const entriesFilename = filenameEntries[1];
 
   if (entriesFilename) {
+    const filepath = path.isAbsolute(entriesFilename)
+      ? entriesFilename
+      : path.join(__dirname, "..", entriesFilename);
+
     // { key, value, produce }
-    return require(`${__dirname}/../${entriesFilename}`);
+    return require(filepath);
   } else {
     const random = () => ["A", "B", "C"][Math.floor(Math.random() * 3)];
     const getEntry = () => `${random()}.${random()}.${random()}`;
