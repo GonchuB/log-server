@@ -13,5 +13,16 @@
     "http"
   ],
   "author": "Gonzalo Beviglia <gonchu.b@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "lodash.get": "^4.4.2",
+    "lodash.merge": "^4.6.1",
+    "lodash.set": "^4.3.2",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  }
 }
