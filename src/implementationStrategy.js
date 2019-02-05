@@ -1,3 +1,4 @@
+const minimist = require("minimist");
 const identity = require("lodash.identity");
 
 const FILENAME_OPTIONS = ["f", "filename", "file", "o", "-output"];
@@ -8,16 +9,14 @@ function implementationStrategy() {
   const filenameEntries = Object.entries(runArguments).find(entry => {
     const key = entry[0];
 
-    return (
-      Boolean(runArguments[key]) && FILENAME_OPTIONS.includes(FILENAME_OPTIONS)
-    );
-  }) || [", "];
+    return Boolean(runArguments[key]) && FILENAME_OPTIONS.includes(key);
+  }) || ["", ""];
 
   const entriesFilename = filenameEntries[1];
 
   if (entriesFilename) {
     // { key, value, produce }
-    return require(`${__dirname}/${entriesFilename}`);
+    return require(`${__dirname}/../${entriesFilename}`);
   } else {
     const random = () => ["A", "B", "C"][Math.floor(Math.random() * 3)];
     const getEntry = () => `${random()}.${random()}.${random()}`;
@@ -28,4 +27,4 @@ function implementationStrategy() {
   }
 }
 
-module.exports = implementationStrategy;
+module.exports = implementationStrategy();
