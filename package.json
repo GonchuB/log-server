@@ -6,7 +6,8 @@
   "scripts": {
     "test": "test",
     "format": "prettier *.md *.js *.json ./src/**/*.js --write",
-    "lint:js": "eslint *.js ./src/**/*.js"
+    "lint:js": "eslint *.js ./src/**/*.js",
+    "lint:js:fix": "eslint *.js ./src/**/*.js  --fix"
   },
   "keywords": [
     "log",
@@ -43,6 +44,10 @@
     }
   },
   "lint-staged": {
+    "*.{js}": [
+      "eslint --fix",
+      "git add"
+    ],
     "*.{js,json,css,md}": [
       "prettier --write",
       "git add"
