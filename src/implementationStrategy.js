@@ -21,8 +21,6 @@ function implementationStrategy() {
     const random = () => ["A", "B", "C"][Math.floor(Math.random() * 3)];
     const getEntry = () => `${random()}.${random()}.${random()}`;
 
-    entryKey = getEntry;
-    entryValue = () => "X";
     return { key: getEntry, value: () => "A", produce: identity };
   }
 }

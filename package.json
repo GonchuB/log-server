@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "test",
-    "format": "prettier ./index.js ./src/**/*.js --write"
+    "format": "prettier *.md *.js *.json ./src/**/*.js --write",
+    "lint:js": "eslint *.js ./src/**/*.js"
   },
   "keywords": [
     "log",
@@ -15,6 +16,9 @@
   ],
   "author": "Gonzalo Beviglia <gonchu.b@gmail.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">=8.3.0"
+  },
   "dependencies": {
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
@@ -26,6 +30,8 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "eslint": "^5.13.0",
+    "eslint-plugin-node": "^8.0.1",
     "husky": "^1.3.1",
     "lint-staged": "^8.1.3",
     "nodemon": "^1.18.9",
