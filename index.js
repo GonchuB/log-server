@@ -3,6 +3,8 @@ const middlewares = require("./src/middlewares");
 const routes = require("./src/routes");
 const logger = require("./src/log");
 
+require("./src/errorReporter");
+
 const port = process.env.PORT || 3000;
 const app = express();
 
