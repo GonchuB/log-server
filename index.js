@@ -5,6 +5,10 @@ const logger = require("./src/log");
 
 require("./src/errorReporter");
 
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").load();
+}
+
 const port = process.env.PORT || 3000;
 const app = express();
 
