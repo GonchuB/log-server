@@ -1,5 +1,9 @@
 {
   "extends": ["eslint:recommended", "plugin:node/recommended"],
+  "plugins": ["jest"],
+  "env": {
+    "jest/globals": true
+  },
   "rules": {
     "node/exports-style": ["error", "module.exports"],
     "node/prefer-global/buffer": ["error", "always"],

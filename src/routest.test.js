@@ -18,18 +18,19 @@ const initRoutes = () => {
 };
 
 describe("POST log-start", () => {
-  test("return a 200", async () => {
+  it("should return a 200", async () => {
     const app = initRoutes();
     const response = await request(app)
       .post("/log-start")
       .set("Content-Type", "application/json")
       .send();
+
     expect(response.statusCode).toBe(200);
   });
 });
 
 describe("POST log", () => {
-  test("return a 200", async () => {
+  it("should return a 200", async () => {
     const app = initRoutes();
     const response = await request(app)
       .post("/log")
@@ -42,7 +43,7 @@ describe("POST log", () => {
 });
 
 describe("POST log-end", () => {
-  test("return the correct payload", async () => {
+  it("should return the correct payload", async () => {
     const app = initRoutes();
     const response = await request(app)
       .post("/log-end")
