@@ -12,6 +12,7 @@ routes(app);
 app.listen(port, () =>
   logger.log({
     level: "info",
-    message: `Example app listening on port ${port}!`
+    message: `Example app listening on port ${port}!`,
+    service: "log-server"
   })
 );

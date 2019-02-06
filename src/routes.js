@@ -4,23 +4,22 @@ const db = require("./db");
 const { entriesToObject } = require("./db.helpers.js");
 const implementationStrategy = require("./implementationStrategy");
 
-function logEntry(entries, entry) {
-  const key = implementationStrategy.key(entry);
-  const value = implementationStrategy.value(entry);
+function logEntry(entries, body) {
+  const key = implementationStrategy.key(body);
+  const value = implementationStrategy.value(body);
 
-  entries.insert({ key, value });
+  const entry = { key, value };
+  entries.insert(entry);
 
-  logger.log({
-    level: "info",
-    message: `${key} = ${JSON.stringify(value, null, 2)}`
-  });
+  return entry;
 }
 
 function routes(app) {
   app.post("/log-start", function(req, res) {
     logger.log({
       level: "info",
-      message: "Entries cleared"
+      message: "Entries cleared",
+      service: "routes/POST/log-start"
     });
     res.sendStatus(200);
   });
@@ -32,12 +31,22 @@ function routes(app) {
 
     const response = JSON.stringify(result, null, 2);
 
-    logger.log({ level: "info", message: response });
+    logger.log({
+      level: "info",
+      message: response,
+      service: "routes/POST/log-end"
+    });
     res.send(response);
   });
 
   app.post("/log", function(req, res) {
-    logEntry(db.entries(), req.body);
+    const { key, value } = logEntry(db.entries(), req.body);
+
+    logger.log({
+      level: "info",
+      message: `${key} = ${JSON.stringify(value, null, 2)}`,
+      service: "routes/POST/log"
+    });
 
     res.sendStatus(200);
   });
