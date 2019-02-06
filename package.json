@@ -4,6 +4,7 @@
   "description": "A generic server that starts, logs via POST into variable, can render logs upon GET and can be stopped\"",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js -f impls/profiler.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "format": "prettier *.md *.js *.json ./src/**/*.js --write",
