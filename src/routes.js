@@ -16,6 +16,8 @@ function logEntry(entries, body) {
 
 function routes(app) {
   app.post("/log-start", function(req, res) {
+    db.drop();
+
     logger.log({
       level: "info",
       message: "Entries cleared",
